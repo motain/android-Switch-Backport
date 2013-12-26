@@ -1,8 +1,9 @@
 apply plugin: 'android-library'
+apply plugin: 'maven'
 
 android {
   compileSdkVersion 17
-  buildToolsVersion '18.1'
+  buildToolsVersion '19'
 
   sourceSets {
     main {
@@ -11,4 +12,18 @@ android {
       res.srcDirs = ['res']
     }
   }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: project.deploymentUrl) {
+               authentication(userName: project.deploymentUsername, password: project.deploymentPassword)
+            }
+
+            pom.artifactId = 'library'
+            pom.groupId = 'org.jraf.android.backport.switchwidget'
+            pom.version = '1.0'
+        }
+    }
 }
